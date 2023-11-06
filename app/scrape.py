@@ -45,11 +45,11 @@ def scrape_test(data: str):
                             detail="Something's fishy here!!")
 
     # Bio
-    try:
-        bio = soup.find('ul').text
-        print(bio)
-    except Exception as e:
-        print(e)
+    # try:
+    #     bio = soup.find_all('ul').split()
+    #     print(bio)
+    # except Exception as e:
+    #     print(e)
         # raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
         #                     detail="Something's fishy here!!")
 
