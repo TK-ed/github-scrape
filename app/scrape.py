@@ -17,7 +17,7 @@ def scrape_test(data: str):
             'span', class_='p-nickname vcard-username d-block').text.replace('\n', '').strip()
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail="Something's fishy here!!")
+                            detail="User not found!! Try something else!!")
 
     # Followers and Following
     try:
