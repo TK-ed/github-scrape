@@ -3,8 +3,10 @@ from app.scrape import scrape_test, repos_scrape
 from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
+origins = ['https://tk-ed.cyclic.app']
+
 app.add_middleware(CORSMiddleware,
-    allow_origins=['*'],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
