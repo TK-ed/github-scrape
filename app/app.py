@@ -1,6 +1,14 @@
 from fastapi import FastAPI, status
 from app.scrape import scrape_test, repos_scrape
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
+
+app.add_middleware(CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 @app.get('/', status_code=status.HTTP_200_OK)
 def root():
