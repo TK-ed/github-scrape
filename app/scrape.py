@@ -54,3 +54,45 @@ def scrape_test(data: str):
         #                     detail="Something's fishy here!!")
 
     return {'username': user_name, 'followers': followers, 'following': following, 'total_repos': total_repos, 'popular-repos': popular_repos, 'contributions': contributions}
+
+
+
+def repos_scrape(url: str, name: str):
+    
+    page = requests.get(url)
+    print(page.status_code)
+    soup = BeautifulSoup(page.text, 'lxml')
+    
+    # return soup.find('h3').text
+    
+    if not page:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+    else: 
+        pass
+    
+    try:
+        repositories1 = soup.find_all('div', class_ = 'd-inline-block mb-1')
+        repositories = []
+        for i in repositories1:
+            repositories.append(i.a.text.replace('\n', '').replace(' ', ''))
+
+        try:
+            page2 = f'https://github.com/{name}?page=2&tab=repositories'
+            requests.get(page2)
+            # print(page2)
+            if page2:
+                repositories1 = soup.find_all('div', class_ = 'd-inline-block mb-1')
+                for i in repositories1:
+                    repositories.append(i.a.text.replace('\n', '').replace(' ', ''))
+            
+            print(len(repositories))      
+                        
+        except:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="Something's fishy here!!")
+    
+    except:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="Something's fishy here!!")
+        
+    return {"total_repos": len(repositories), "repos": repositories}
